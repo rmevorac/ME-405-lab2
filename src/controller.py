@@ -9,15 +9,20 @@ class Controller:
         self.setpoint = setpoint
         self.motor = motor
         self.encoder = encoder
-#         self.motor_data = []
-#         self.time = utime.ticks_ms()
+        self.motor_data = [(0,0)]
+        self.time = utime.ticks_ms()
         print(f"Creating controller with KP {self.KP} and setpoint {self.setpoint}")
 
     def run(self):
         self.encoder.read()
         output = self.KP * (self.setpoint - self.encoder.position)
         self.motor.set_duty_cycle(output)
-        #print(self.time)
+        
+        delta_time = utime.ticks_ms() - self.time
+        if delta_time >= 25:
+            self.time = utime.ticks_ms()
+            self.motor_data.append((delta_time + self.motor_data[-1][0], self.encoder.position))
+        
         print(self.encoder.position)
 
     def set_setpoint(self, setpoint):
@@ -31,7 +36,7 @@ class Controller:
 if __name__ == "__main__":
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
     encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
-    controller1 = Controller(0.00001875 , 3200000, motor1, encoder1)
+    controller1 = Controller(0.0001 , 3200000, motor1, encoder1)
     
     while 1:
         try:
@@ -39,6 +44,6 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             motor1.set_duty_cycle(0)
             print("motor shut off")
-            print(controller1.KP)
+            print(controller1.motor_data)
             break
             
