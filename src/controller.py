@@ -21,7 +21,6 @@ class Controller:
 
 
 if __name__ == "__main__":
-    motor1 = ()
-    encoder1 = ()
-    controller1 = (1.5, 100, motor1, encoder1)
-    pass
+    motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
+    encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
+    controller1 = (1, 640000000, motor1, encoder1)
