@@ -1,14 +1,13 @@
 import serial
+import array
 from matplotlib import pyplot as plt
-
 
 
 if __name__ == "__main__":
     
     databx = []
     databy = []
-    datax = []
-    datay = []
+
     with serial.Serial('COM4',115200,timeout = 7) as ser:
         ser.flush()
         
@@ -20,24 +19,25 @@ if __name__ == "__main__":
                 print('ended')
                 break
             try:
-                databx,databy =  (line.strip().split(b','))
+                tempx,tempy = (line.strip().split(b','))
+                databx.append(tempx)
+                databy.append(tempy)
             except:
                 print('error in reading line')
                 continue
-            
+
         print('Stop Reading')
+
+    datax = array.array('f', [len(databx)])
+    datay = array.array('f', [len(databy)])
         
     for i in range(len(datax)):
         datax[i] = float(databx[i])
-    
-    for j in range(len(datay)):
-        datay[j] = float(databy[j])
-    
-    
+        datay[i] = float(databy[i])
 
 
     plt.plot(datax,datay)
     plt.axis([min(datax),max(datax),min(datay),max(datay)])
-    plt.xlabel(titles[plotindex])
-    plt.ylabel(titles[plotindex+1])
+    plt.xlabel("Time")
+    plt.ylabel("Position")
     plt.show()
