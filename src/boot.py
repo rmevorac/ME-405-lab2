@@ -7,9 +7,9 @@ from controller import Controller
 def get_params():
     while True:
         try:
-            KP = float(input("Enter a KP: "))
+            kp = float(input("Enter a KP: "))
             setpoint = int(input("Enter a setpoint: "))
-            return (KP, setpoint)
+            return (kp, setpoint)
         except ValueError:
             print("Please enter a valid input")
             
@@ -32,7 +32,7 @@ if __name__ == "__main__":
                 updated_params = get_params()
                 controller1.time = utime.ticks_ms()
                 controller1.encoder.zero()
-                controller1.set_KP(updated_params[0])
+                controller1.set_kp(updated_params[0])
                 controller1.set_setpoint(updated_params[1])
                 
         except KeyboardInterrupt:
