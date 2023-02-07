@@ -35,11 +35,10 @@ if __name__ == "__main__":
         params = get_params()
 
         ## Sending user input to controller
-#         serSend.write(b'123.4\r\n')
-#         serSend.write(b'5433.4\r\n')
         serSend.write(f"{params[0]}\r\n".encode())
         serSend.write(f"{params[1]}\r\n".encode())
         
+        serSend.close()
 
 
     ## Opening the serial port 'COM4' with a baud rate of 115200 and a timeout of 7 seconds
@@ -47,15 +46,16 @@ if __name__ == "__main__":
         ## Flushing the input buffer of the serial port
         ser.flush()
         
+        
 
         ## A loop to continuously read the data from the serial port
         while 1:
             
             ## Reading a line of data from the serial port
             line = ser.readline()
-            print(line)
+
             ## Checking if the line read is equal to 'end'
-            if(line == b'end'):
+            if(line == b''):
                 print('ended')
                 ## Breaking the loop if 'end' is received
                 break
@@ -65,9 +65,11 @@ if __name__ == "__main__":
                 ## Appending the received x and y position data to their respective lists
                 databx.append(tempx)
                 databy.append(tempy)
+                print(tempx)
+                print(tempy)
             except:
                 ## Printing an error message in case of any error while reading the line
-                print('error in reading line')
+
                 ## Continuing to the next iteration of the loop
                 continue
 
@@ -79,7 +81,8 @@ if __name__ == "__main__":
     datay = array.array('f', [0] * len(databy))
        
     ## Converting the position data from bytes to float and dividing by 1000 to get the data in seconds and rotations
-    for i in range(len(datax)):
+    ##Fix plotting to zero before submission and last value comes in with paraenthesis 
+    for i in range(len(datax) - 1):
         datax[i] = float(databx[i])/1000
         datay[i] = float(databy[i])/1000
 
