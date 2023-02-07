@@ -33,7 +33,6 @@ def get_inputs():
 #  USB-serial port and updates the KP and setpoint values when necessary.
 #
 if __name__ == "__main__":
-    pyb.repl_uart(None)                    # Turn off the REPL on UART2
     u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port
     
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
@@ -45,16 +44,17 @@ if __name__ == "__main__":
         try:
             if controller1.run():
                 u2.write(f"{controller1.motor_data[0]}, {controller1.motor_data[1]}\r\n")
-            
-            if abs(encoder1.position - encoder1.prev_position) <= 2\
-                and encoder1.position in range(controller1.setpoint - 50, controller1.setpoint + 50):
-                u2.write("end")
-                updated_params = get_params()
-                controller1.encoder.zero()
-                controller1.time = utime.ticks_ms()
-                controller1.motor_data = (0, 0)
-                controller1.set_KP(updated_params[0])
-                controller1.set_setpoint(updated_params[1])
+
+            ## This code is used for debugging and testing
+            # if abs(encoder1.position - encoder1.prev_position) <= 2\
+            #     and encoder1.position in range(controller1.setpoint - 50, controller1.setpoint + 50):
+            #     u2.write("end")
+            #     updated_params = get_inputs()
+            #     controller1.encoder.zero()
+            #     controller1.time = utime.ticks_ms()
+            #     controller1.motor_data = (0, 0)
+            #     controller1.set_KP(updated_params[0])
+            #     controller1.set_setpoint(updated_params[1])
                 
         except KeyboardInterrupt:
             motor1.set_duty_cycle(0)
