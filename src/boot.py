@@ -12,19 +12,6 @@ from encoder_reader import Encoder
 from motor_driver import MotorDriver
 from controller import Controller
 
-## @brief This function prompts the user to input the KP and setpoint values.
-#  The function will continue to prompt the user until a valid input is received.
-#  @return A tuple of the KP and setpoint values
-#
-def get_params():
-    while True:
-        try:
-            KP = float(input("Enter a KP: "))
-            setpoint = int(input("Enter a setpoint: "))
-            return (KP, setpoint)
-        except ValueError:
-            print("Please enter a valid input")
-            
 ## @brief The main function for the motor control system.
 #  This function initializes the system components, including the motor and encoder,
 #  and starts the controller. The function also writes the motor data to the second
