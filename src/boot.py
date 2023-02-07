@@ -1,9 +1,21 @@
+## @file
+#  This is the main script for the motor control system.
+#
+
+## @package
+#  This script contains the main function for the motor control system.
+#
+
 import pyb, utime
 from pyb import Pin as Pin
 from encoder_reader import Encoder
 from motor_driver import MotorDriver
 from controller import Controller
 
+## @brief This function prompts the user to input the KP and setpoint values.
+#  The function will continue to prompt the user until a valid input is received.
+#  @return A tuple of the KP and setpoint values
+#
 def get_params():
     while True:
         try:
@@ -13,7 +25,11 @@ def get_params():
         except ValueError:
             print("Please enter a valid input")
             
-    
+## @brief The main function for the motor control system.
+#  This function initializes the system components, including the motor and encoder,
+#  and starts the controller. The function also writes the motor data to the second
+#  USB-serial port and updates the KP and setpoint values when necessary.
+#
 if __name__ == "__main__":
     pyb.repl_uart(None)                    # Turn off the REPL on UART2
     u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port

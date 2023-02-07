@@ -1,17 +1,24 @@
+## @file
+# 
+# This file contains code for Encoder class to read encoder readings.
+#
+
 import pyb
 from pyb import Pin as Pin
 
+## @class Encoder
+#
+# The class Encoder reads and provides the position of the encoder.
+#
 class Encoder:
-    """! 
-    This class implements a motor driver for an ME405 kit. 
-    """
-
+    ## The constructor method of the Encoder class
+    #
+    # @param self The object pointer
+    # @param Apin Pin number for channel A of the encoder
+    # @param Bpin Pin number for channel B of the encoder
+    # @param timer The timer number for reading encoder values
+    #
     def __init__(self, Apin, Bpin, timer):
-        """! 
-        Creates aencoder channels by initializing GPIO
-        pins. 
-        @param en_pin (There will be several pin parameters)
-        """
         self.enc_chA = Pin(Apin, Pin.OUT_PP)
         self.enc_chB = Pin(Bpin, Pin.OUT_PP)
         self.tim = pyb.Timer(timer, prescaler=0, period=0xFFFF)
@@ -21,8 +28,11 @@ class Encoder:
         self.prev_position = 1000
         self.old_delta = 0
         print ("Creating Encoder")
-
-        
+    
+    ## Method to read and provide the encoder position
+    #
+    # @param self The object pointer
+    #
     def read(self):
         new_delta = self.tim.counter()
         delta_1 = new_delta - self.old_delta
@@ -42,6 +52,9 @@ class Encoder:
         self.position -= delta_1
         print(self.position)
 
-
+    ## Method to reset the encoder position to 0
+    #
+    # @param self The object pointer
+    #
     def zero(self):
         self.position = 0
