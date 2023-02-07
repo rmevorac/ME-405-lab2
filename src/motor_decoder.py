@@ -29,6 +29,7 @@ if __name__ == "__main__":
     databx = []
     ## A list to store the y-axis position data
     databy = []
+
     with serial.Serial('COM4', 115200) as serSend:
         serSend.flush()
         ## Prompting user for KP and setpoint
@@ -37,16 +38,22 @@ if __name__ == "__main__":
         ## Sending user input to controller
         serSend.write(f"{params[0]}\r\n".encode())
         serSend.write(f"{params[1]}\r\n".encode())
+<<<<<<< HEAD
         
         serSend.close()
+=======
+>>>>>>> e0903c1f04926ae3f85e405623f2b6211c26c488
 
 
     ## Opening the serial port 'COM4' with a baud rate of 115200 and a timeout of 7 seconds
     with serial.Serial('COM4',115200,timeout = 7) as ser:
         ## Flushing the input buffer of the serial port
         ser.flush()
+<<<<<<< HEAD
         
         
+=======
+>>>>>>> e0903c1f04926ae3f85e405623f2b6211c26c488
 
         ## A loop to continuously read the data from the serial port
         while 1:
