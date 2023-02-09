@@ -40,9 +40,12 @@ In order to properly document the motor controlelr various step responses where 
 
 ![Underdamped](underdampedkp0.175.png)
 
-This response shows an underdamped system where in the Kp was tool small to overcome the motors interia near the target position and it udnershot the setpoint
+This response shows an underdamped system where the Kp was too large and caused the system to over correct and therefore over shoot its target, which increases its time to reach steady state.
 
-![Overdamped](underdampedkp0.175.png)
+![Overdamped](overdampedkp0.017.png)
 
-This response shows an underdamped system where in the Kp was tool small to overcome the motors interia near the target position and it udnershot the setpoint
+This response shows an overdamped system where in the Kp was tool small to overcome the motors interia near the target position and it undershot the setpoint.
 
+![Perfectly Damped](kp0.06case2.png)
+
+This response shows an ideally damped system. The Kp is jsut large enoguh to cause a small overshoot and then the system rectifies quickly. This kp was experimentally found to have the shortest time to steady state.
