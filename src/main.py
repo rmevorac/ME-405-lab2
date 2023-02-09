@@ -1,22 +1,36 @@
-## @file
-#  This is the main script for the motor control system.
-#
+"""!
+@file main.py
+    This file implements the main function for a motor control system. The system consists of a motor, encoder,
+    and a controller. The motor is driven by a `MotorDriver` object and the encoder is read by an `Encoder` object.
+    The system reads the KP and setpoint values from the decoder (other computer) and updates the motor
+    accordingly using the Controller object. The motor data is written to the second USB-serial port.
 
-## @package
-#  This script contains the main function for the motor control system.
-#
+@author Ben Elkayam
+@author Roey Mevorach
+@author Ermias Yemane
 
+@date   2023-Feb-10
+"""
+
+"""!
+@package Python inferface for micro-controller board utilities and tools. Necessary for pin and timer access
+"""
 import pyb, utime
 from pyb import Pin as Pin
 from encoder_reader import Encoder
 from motor_driver import MotorDriver
 from controller import Controller
 
-
-## @brief This function reads the user's input for the KP and setpoint values from the decoder.
-#  @return A tuple of the KP and setpoint values
-#
 def get_inputs():
+    """!
+    @brief      This function reads the user's input for the KP and setpoint values from the decoder.
+    @details    The function creates a UART object on port 2 with a baudrate of 115200 and a timeout of 5 seconds.
+                It then waits for input from the serial communication and reads the KP and setpoint values.
+                Finally, it closes the serial communication and returns a tuple of the KP and setpoint values.
+    @param      None
+    @return     A tuple of the KP and setpoint values.
+    """
+    ## Set up the USB-serial port
     ser = pyb.UART(2, baudrate=115200, timeout=5)
 
     while 1:
@@ -25,15 +39,16 @@ def get_inputs():
             setpoint = ser.readlines()
             break
 
+    # Close the USB-serial port
+    ser.deinit()
+
     return (kp, setpoint)
 
-## @brief The main function for the motor control system.
-#  This function initializes the system components, including the motor and encoder,
-#  and starts the controller. The function also writes the motor data to the second
-#  USB-serial port and updates the KP and setpoint values when necessary.
-#
+
+
 if __name__ == "__main__":
-    u2 = pyb.UART(2, baudrate=115200)      # Set up the second USB-serial port
+    # Set up the USB-serial port
+    u2 = pyb.UART(2, baudrate=115200)
     
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
     encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
@@ -59,5 +74,7 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             motor1.set_duty_cycle(0)
             print("motor shut off")
-            print(controller1.motor_data)
             break
+
+    # close the USB-serial port
+    u2.deinit()

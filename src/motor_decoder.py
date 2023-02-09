@@ -1,30 +1,32 @@
-## @file motor_decoder
-# @brief This class handles the data coming in from the encoder and parses it for user readability and motor control
-## @details
-#
-# This script contains code for plotting the position data received from a serial port. The data is collected in real-time and sent to the computer via the serial port.
-#
-# The main function of the script, `if __name__ == "__main__":`, initializes the serial port and receives position data from it. It prompts the user for two input values, the KP and setpoint values, which are sent to the controller via the serial port.
-#
-# The received position data is processed and plotted using the `matplotlib` library. The data is first read from the serial port and stored in two separate lists, `databx` and `databy`. These lists are then converted to arrays of type `float`, and the values are divided by 1000 to get the data in seconds and rotations.
-#
-# Finally, the data is plotted with `matplotlib`, with the time data on the x-axis and the position data on the y-axis. The plot is displayed to the user once all the data has been processed.               
-# @author Ben Elkayam
-# @author Roey Mevorach
-# @author Ermias Yemane
-# @date	January 1 30 2023
-# This file contains code for plotting the position data received from a serial port.
-#
+"""!
+@file motor_decoder.py
+    This file processes the data from an encoder for readability and motor control. It collects the
+    position data in real-time from the serial port and plots the data using the matplotlib library.
+    The main function of the script initializes the serial port and then prompts the user for KP and
+    setpoint values. These values are then sent to microcontroller and the controller is run with those
+    input values. Position and time values are then received in real time from the microcontroller.
+    The received data is processed and then plotted, with time on the x-axis and position on the y-axis.
+    The final plot is displayed to the user.
 
+@author Ben Elkayam
+@author Roey Mevorach
+@author Ermias Yemane
+
+@date   2023-Feb-10
+"""
 import serial
 import array
 from matplotlib import pyplot as plt
 
-## @brief This function prompts the user to input the KP and setpoint values.
-#  The function will continue to prompt the user until a valid input is received.
-#  @return A tuple of the KP and setpoint values
-#
 def get_params():
+    '''!
+    @brief      Prompts the user to enter KP and setpoint values.
+    @details    This function prompts the user for two values, the KP and setpoint,
+                which are used to control the motor. It repeatedly prompts the user
+                until valid input is entered.
+    @param      None
+    @return     Tuple of strings, containing the KP and setpoint values.
+    '''
     while True:
         try:
             KP = float(input("Enter a KP: "))
@@ -33,11 +35,9 @@ def get_params():
         except ValueError:
             print("Please enter a valid input")
 
-## @brief This function initializes the serial port and receives position data from it.
-#  The received data is processed, converted and plotted using matplotlib.
-#
+
+
 if __name__ == "__main__":
-    
     ## A list to store the x-axis position data
     databx = []
     ## A list to store the y-axis position data
@@ -51,22 +51,11 @@ if __name__ == "__main__":
         ## Sending user input to controller
         serSend.write(f"{params[0]}\r\n".encode())
         serSend.write(f"{params[1]}\r\n".encode())
-#<<<<<<< HEAD
-        
-        serSend.close()
-#=======
-#>>>>>>> e0903c1f04926ae3f85e405623f2b6211c26c488
-
 
     ## Opening the serial port 'COM4' with a baud rate of 115200 and a timeout of 7 seconds
     with serial.Serial('COM4',115200,timeout = 1) as ser:
         ## Flushing the input buffer of the serial port
         ser.flush()
-#<<<<<<< HEAD
-        
-        
-#=======
-#>>>>>>> e0903c1f04926ae3f85e405623f2b6211c26c488
 
         ## A loop to continuously read the data from the serial port
         while 1:

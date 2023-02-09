@@ -1,5 +1,9 @@
 var dir_68267d1309a1af8e8297ef4c3efbcdba =
 [
-    [ "encoder_reader.py", "encoder__reader_8py.html", "encoder__reader_8py" ],
-    [ "test_controller.py", "test__controller_8py.html", "test__controller_8py" ]
+    [ "boot.py", "boot_8py.html", null ],
+    [ "controller.py", "controller_8py.html", null ],
+    [ "encoder_reader.py", "encoder__reader_8py.html", null ],
+    [ "main.py", "main_8py.html", "main_8py" ],
+    [ "motor_decoder.py", "motor__decoder_8py.html", "motor__decoder_8py" ],
+    [ "motor_driver.py", "motor__driver_8py.html", null ]
 ];
