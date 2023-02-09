@@ -30,7 +30,7 @@ def get_inputs():
     @param      None
     @return     A tuple of the KP and setpoint values.
     """
-    ## Set up the USB-serial port
+    # Set up the USB-serial port
     ser = pyb.UART(2, baudrate=115200, timeout=5)
 
     while 1:
@@ -47,7 +47,7 @@ def get_inputs():
 
 
 if __name__ == "__main__":
-    # Set up the USB-serial port
+    ## Set up the USB-serial port
     u2 = pyb.UART(2, baudrate=115200)
     
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
