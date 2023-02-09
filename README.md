@@ -38,14 +38,17 @@ The decoder handles all user input, sends it through its open serial port to the
 ## Mechanical Performance Data 
 In order to properly document the motor controlelr various step responses where tested to see how the motor would respond under our controller. In order to ensure our motor controller operated as expected, an Underdamped, Overdamped and a "Perfectly Damped" *Kp*s where found.
 
+### Underdamped Response
 ![Underdamped](underdampedkp0.175.png)
 
 This response shows an underdamped system where the Kp was too large and caused the system to over correct and therefore over shoot its target, which increases its time to reach steady state.
 
+### Overdamped Response
 ![Overdamped](overdampedkp0.017.png)
 
 This response shows an overdamped system where in the Kp was tool small to overcome the motors interia near the target position and it undershot the setpoint.
 
+### Perfectly Damped
 ![Perfectly Damped](kp0.06case2.png)
 
 This response shows an ideally damped system. The Kp is jsut large enoguh to cause a small overshoot and then the system rectifies quickly. This kp was experimentally found to have the shortest time to steady state.
