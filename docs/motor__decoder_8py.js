@@ -4,6 +4,7 @@ var motor__decoder_8py =
     [ "databx", "motor__decoder_8py.html#ad4249d55ef07f6467f4e45ee78690093", null ],
     [ "databy", "motor__decoder_8py.html#a81314c98349e622fd7b6bd017493e773", null ],
     [ "datax", "motor__decoder_8py.html#ac801afeee6b8d8caa662d6cd559ff56a", null ],
+    [ "datay", "motor__decoder_8py.html#af63aecc67a6d54b3cbab7128e960ee3b", null ],
     [ "except", "motor__decoder_8py.html#a78a33442ad5561c10d5b284cc2828ffa", null ],
     [ "line", "motor__decoder_8py.html#a2515de620c7143128d6ca731b1d71f0b", null ],
     [ "params", "motor__decoder_8py.html#ab00d3914aabd1391ae254159c97e24b3", null ],

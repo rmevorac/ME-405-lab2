@@ -80,18 +80,23 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:a0470c60385ccc3632d48ebb3f9aca9dc"><td class="memItemLeft" align="right" valign="top"><a id="a0470c60385ccc3632d48ebb3f9aca9dc" name="a0470c60385ccc3632d48ebb3f9aca9dc"></a>
 pyb&#160;</td><td class="memItemRight" valign="bottom"><b>main.u2</b> = pyb.UART(2, baudrate=115200)</td></tr>
+<tr class="memdesc:a0470c60385ccc3632d48ebb3f9aca9dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set up the USB-serial port for streaming data. <br /></td></tr>
 <tr class="separator:a0470c60385ccc3632d48ebb3f9aca9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a199100edd0090728cb79f1505b6a2743"><td class="memItemLeft" align="right" valign="top"><a id="a199100edd0090728cb79f1505b6a2743" name="a199100edd0090728cb79f1505b6a2743"></a>
-<a class="el" href="class_motor_driver.html">MotorDriver</a>&#160;</td><td class="memItemRight" valign="bottom"><b>main.motor1</b> = <a class="el" href="class_motor_driver.html">MotorDriver</a>(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)</td></tr>
+MotorDriver&#160;</td><td class="memItemRight" valign="bottom"><b>main.motor1</b> = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)</td></tr>
+<tr class="memdesc:a199100edd0090728cb79f1505b6a2743"><td class="mdescLeft">&#160;</td><td class="mdescRight">The creation of the motor object. <br /></td></tr>
 <tr class="separator:a199100edd0090728cb79f1505b6a2743"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87fdac18f7a1444924085943a8234e19"><td class="memItemLeft" align="right" valign="top"><a id="a87fdac18f7a1444924085943a8234e19" name="a87fdac18f7a1444924085943a8234e19"></a>
-<a class="el" href="class_encoder.html">Encoder</a>&#160;</td><td class="memItemRight" valign="bottom"><b>main.encoder1</b> = <a class="el" href="class_encoder.html">Encoder</a>(Pin.board.PB6, Pin.board.PB7, 4)</td></tr>
+Encoder&#160;</td><td class="memItemRight" valign="bottom"><b>main.encoder1</b> = Encoder(Pin.board.PB6, Pin.board.PB7, 4)</td></tr>
+<tr class="memdesc:a87fdac18f7a1444924085943a8234e19"><td class="mdescLeft">&#160;</td><td class="mdescRight">The creation of the encoder object. <br /></td></tr>
 <tr class="separator:a87fdac18f7a1444924085943a8234e19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43b21e9ea11c181553e5882fc843e85c"><td class="memItemLeft" align="right" valign="top"><a id="a43b21e9ea11c181553e5882fc843e85c" name="a43b21e9ea11c181553e5882fc843e85c"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>main.updated_params</b> = get_inputs()</td></tr>
+<tr class="memdesc:a43b21e9ea11c181553e5882fc843e85c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inputs from decoder. <br /></td></tr>
 <tr class="separator:a43b21e9ea11c181553e5882fc843e85c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46a5d5062114b708b96b0850aca34b19"><td class="memItemLeft" align="right" valign="top"><a id="a46a5d5062114b708b96b0850aca34b19" name="a46a5d5062114b708b96b0850aca34b19"></a>
-<a class="el" href="class_controller.html">Controller</a>&#160;</td><td class="memItemRight" valign="bottom"><b>main.controller1</b> = <a class="el" href="class_controller.html">Controller</a>(updated_params[0] , updated_params[1], motor1, encoder1)</td></tr>
+Controller&#160;</td><td class="memItemRight" valign="bottom"><b>main.controller1</b> = Controller(updated_params[0] , updated_params[1], motor1, encoder1)</td></tr>
+<tr class="memdesc:a46a5d5062114b708b96b0850aca34b19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Once motor, encoder and params are collected they are used to create this controller object. <br /></td></tr>
 <tr class="separator:a46a5d5062114b708b96b0850aca34b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a129bda823cbb62ffb698427de27e0d56"><td class="memItemLeft" align="right" valign="top"><a id="a129bda823cbb62ffb698427de27e0d56" name="a129bda823cbb62ffb698427de27e0d56"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>main.try</b> :</td></tr>
@@ -99,7 +104,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>main.updated_params</b
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This file implements the main function for a motor control system. </p>
-<p>The system consists of a motor, encoder, and a controller. The motor is driven by a <code><a class="el" href="class_motor_driver.html" title="This class is used to control a motor using the Pyboard and its pins.">MotorDriver</a></code> object and the encoder is read by an <code><a class="el" href="class_encoder.html" title="Reads and provides the position of an encoder.">Encoder</a></code> object. The system reads the KP and setpoint values from the decoder (other computer) and updates the motor accordingly using the <a class="el" href="class_controller.html" title="A control system for positioning a motor using feedback from an encoder and a motor driver.">Controller</a> object. The motor data is written to the second USB-serial port.</p>
+<p>The system consists of a motor, encoder, and a controller. The motor is driven by a <code>MotorDriver</code> object and the encoder is read by an <code>Encoder</code> object. The system reads the KP and setpoint values from the decoder (other computer) and updates the motor accordingly using the Controller object. The motor data is written to the second USB-serial port.</p>
 <dl class="section author"><dt>Author</dt><dd>Ben Elkayam </dd>
 <dd>
 Roey Mevorach </dd>
