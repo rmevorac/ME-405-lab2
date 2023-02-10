@@ -29,7 +29,9 @@ def get_params():
     '''
     while True:
         try:
+            ## Stores the KP value send from the decoder PC
             KP = float(input("Enter a KP: "))
+            ## Stores the setpoint value send from the decoder PC
             setpoint = int(input("Enter a setpoint: "))
             return (str(KP), str(setpoint))
         except ValueError:
@@ -73,27 +75,30 @@ if __name__ == "__main__":
                 tempx,tempy = (line.strip().split(b','))
                 ## Appending the received x and y position data to their respective lists
                 databx.append(tempx)
+                ## This list handles the y variable data
                 databy.append(tempy)
                 print(tempx)
                 print(tempy)
             except:
-                ## Printing an error message in case of any error while reading the line
+                # Printing an error message in case of any error while reading the line
 
-                ## Continuing to the next iteration of the loop
+                # Continuing to the next iteration of the loop
                 continue
 
         print('Stop Reading')
 
 
-    ## Converting the lists of bytes to arrays of float type
+    ## Converting the list of X bytes to arrays of float type 
     datax = array.array('f', [0] * len(databx))
+    ## Converting the list of X bytes to arrays of float type
     datay = array.array('f', [0] * len(databy))
        
     ## Converting the position data from bytes to float and dividing by 1000 to get the data in seconds and rotations
-    ##Fix plotting to zero before submission and last value comes in with paraenthesis 
     for i in range(len(datax)):
         
+        ## Finalized X list for plotting
         datax[i] = float(databx[i])/1000
+        ## Finalized Y list for plotting
         datay[i] = float(databy[i])/1000
 
 

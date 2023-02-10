@@ -13,7 +13,6 @@ from pyb import Pin as Pin
 
 class Encoder:
     '''!
-    @class      Encoder
     @brief      Reads and provides the position of an encoder.
     @details    The Encoder class reads the position of an encoder connected to the system and provides
                 it to the user. The class is constructed by passing the channel A pin, channel B pin, and
@@ -54,9 +53,10 @@ class Encoder:
         @param      self The object itself
         @return     None
         '''
+        ## The current encoder position
         new_delta = self.tim.counter()
+        ## Difference in previous and current position
         delta_1 = new_delta - self.old_delta
-
         if delta_1 <= -32768:
             delta_1 += 65536
             if new_delta > self.old_delta: #big drop

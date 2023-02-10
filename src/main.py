@@ -30,29 +30,33 @@ def get_inputs():
     @param      None
     @return     A tuple of the KP and setpoint values.
     """
-    # Set up the USB-serial port
+    # Set up the USB-serial port for listening for inputs
     ser = pyb.UART(2, baudrate=115200, timeout=5)
 
     while 1:
         if ser.any():
-            kp = ser.readlines()
-            setpoint = ser.readlines()
+            kp = float(ser.readline())
+            setpoint = int(ser.readline())
             break
 
     # Close the USB-serial port
-    ser.deinit()
+    #ser.deinit()
 
     return (kp, setpoint)
 
 
 
 if __name__ == "__main__":
-    ## Set up the USB-serial port
+    ## Set up the USB-serial port for streaming data
     u2 = pyb.UART(2, baudrate=115200)
     
+    ## The creation of the motor object
     motor1 = MotorDriver(Pin.board.PC1, Pin.board.PA0, Pin.board.PA1, 5)
+    ## The creation of the encoder object
     encoder1 = Encoder(Pin.board.PB6, Pin.board.PB7, 4)
+    ## Inputs from decoder
     updated_params = get_inputs()
+    ## Once motor, encoder and params are collected they are used to create this controller object
     controller1 = Controller(updated_params[0] , updated_params[1], motor1, encoder1)
     
     while 1:        

@@ -9,6 +9,11 @@
 
 @date   2023-Feb-10
 """
+"""
+@package pyb Contains all micro controller tools we use
+@package encoder_reader Contains our encoder driver tools and data
+@package motor_driver Contains our motor driver tools and interfaces with the encoder
+"""
 import pyb, utime
 from pyb import Pin as Pin
 from encoder_reader import Encoder
@@ -17,7 +22,6 @@ from motor_driver import MotorDriver
 
 class Controller:
     '''!
-    @class      Controller
     @brief      A control system for positioning a motor using feedback from an encoder and a motor driver.
     @details    The Controller class implements a control loop that uses an Encoder object to get feedback
                 on the position of a motor and a MotorDriver object to control the motor. It has methods
@@ -56,11 +60,14 @@ class Controller:
         @param      self The object itself
         @return     A flag indicating if the motor data has been updated (0 or 1).
         '''
+        ##Debugging flag
         flag = 0
-        
+        ## Time difference from which the motor runs its controller processes 
         delta_time = utime.ticks_ms() - self.time
+        #Loop handles motor updating its controller information
         if delta_time >= 10:
             self.encoder.read()
+            ## Is the value sent to the motor driver after being scaled by Kp
             output = self.kp * (self.setpoint - self.encoder.position)
             self.motor.set_duty_cycle(output)
             

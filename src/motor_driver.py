@@ -16,7 +16,6 @@ from pyb import Pin as Pin
 
 class MotorDriver:
     '''!
-    @class      MotorDriver
     @brief      This class is used to control a motor using the Pyboard and its pins.
     @details    The class initializes the pins for the enable, input 1, and input 2 pins of the motor.
                 It also initializes a timer for PWM control of the motor. The class provides a function
@@ -37,8 +36,11 @@ class MotorDriver:
         @param      timer_num Timer number
         @return     None
         '''
+        ## Sets up the in1pin for the motor to be push-pull
         pin1 = Pin(in1pin, Pin.OUT_PP)
+        ## Sets up the in2pin for the motor to be push-pull
         pin2 = Pin(in2pin, Pin.OUT_PP)
+        ## Creates the timer which will run the motor
         timer = pyb.Timer(timer_num, freq=0xFFFF)
         self.pin_en = Pin(en_pin, Pin.OUT_OD, Pin.PULL_UP)
         self.ch1 = timer.channel(1, pyb.Timer.PWM, pin=pin1)
